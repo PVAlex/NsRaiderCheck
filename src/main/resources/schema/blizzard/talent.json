@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "tier": {
+      "type": "integer"
+    },
+    "column": {
+      "type": "integer"
+    },
+    "spell": {
+      "$ref": "spell.json"
+    },
+    "spec": {
+      "$ref": "spec.json"
+    }
+  }
+}

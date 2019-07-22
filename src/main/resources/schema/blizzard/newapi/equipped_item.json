@@ -1,0 +1,122 @@
+{
+  "type": "object",
+  "properties": {
+    "item": {
+      "$ref": "detail.json"
+    },
+    "slot": {
+      "$ref": "type.json"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "context": {
+      "type": "integer"
+    },
+    "bonus_list": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "quality": {
+      "$ref": "type.json"
+    },
+    "name": {
+      "type": "string"
+    },
+    "modified_appearance_id": {
+      "type": "integer"
+    },
+    "azerite_details": {
+      "type": "object",
+      "properties": {
+        "selected_powers": {
+          "type": "array",
+          "items": {
+            "$ref": "selected_power.json"
+          }
+        },
+        "selected_powers_string": {
+          "type": "string"
+        },
+        "percentage_to_next_level": {
+          "type": "number"
+        },
+        "selected_essences": {
+          "type": "array",
+          "items": {
+            "$ref": "essence.json"
+          }
+        }
+      }
+    },
+    "name_description": {
+      "type": "string"
+    },
+    "media": {
+      "$ref": "detail.json"
+    },
+    "item_class": {
+      "$ref": "detail.json"
+    },
+    "item_subclass": {
+      "$ref": "detail.json"
+    },
+    "inventory_type": {
+      "$ref": "type.json"
+    },
+    "binding": {
+      "$ref": "type.json"
+    },
+    "armor": {
+      "$ref": "stat.json"
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "$ref": "stat.json"
+      }
+    },
+    "spells": {
+      "type": "array",
+      "items": {
+        "$ref": "spell.json"
+      }
+    },
+    "requirements": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "$ref": "stat.json"
+        }
+      }
+    },
+    "level": {
+      "$ref": "stat.json"
+    },
+    "transmog": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "detail.json"
+        },
+        "display_string": {
+          "type": "string"
+        },
+        "item_modified_appearance_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "durability": {
+      "$ref": "stat.json"
+    },
+    "unique_equipped": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

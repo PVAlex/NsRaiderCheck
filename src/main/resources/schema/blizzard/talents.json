@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "selected": {
+      "type": "boolean"
+    },
+    "talents": {
+      "type": "array",
+      "items": {
+        "$ref": "talent.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "realm": {
+      "type": "string"
+    },
+    "battlegroup": {
+      "type": "string"
+    },
+    "class": {
+      "type": "integer",
+      "enum": [1,2,3,4,5,6,7,8,9,10,11,12],
+      "javaEnumNames": [
+        "WARRIOR",
+        "PALADIN",
+        "HUNTER",
+        "ROGUE",
+        "PRIEST",
+        "DEATH_KNIGHT",
+        "SHAMAN",
+        "MAGE",
+        "WARLOCK",
+        "MONK",
+        "DRUID",
+        "DEMON_HUNTER"
+      ]
+    },
+    "race": {
+      "type": "integer"
+    },
+    "gender": {
+      "type": "integer"
+    },
+    "level": {
+      "type": "integer"
+    },
+    "achievementPoints": {
+      "type": "integer"
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "calcClass": {
+      "type": "string"
+    },
+    "faction": {
+      "type": "integer"
+    },
+    "spec": {
+      "$ref": "spec.json"
+    },
+    "guild": {
+      "type": "string"
+    },
+    "guildRealm": {
+      "type": "string"
+    },
+    "lastModified": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "items": {
+      "$ref": "items.json"
+    },
+    "audit": {
+      "$ref": "audit.json"
+    },
+    "talents": {
+      "type": "array",
+      "items": {
+        "$ref": "talents.json"
+      }
+    },
+    "essences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "existingJavaType": "ru.nsguild.raidercheck.api.blizzard.newapi.Essence"
+      }
+    },
+    "reputation": {
+      "type": "array",
+      "items": {
+        "$ref": "reputation.json"
+      }
+    },
+    "professions": {
+      "$ref": "professions.json"
+    },
+    "totalHonorableKills": {
+      "type": "integer"
+    }
+  }
+}

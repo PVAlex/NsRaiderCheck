@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "standing": {
+      "type": "string"
+    },
+    "value": {
+      "type": "integer"
+    },
+    "max": {
+      "type": "integer"
+    }
+  }
+}

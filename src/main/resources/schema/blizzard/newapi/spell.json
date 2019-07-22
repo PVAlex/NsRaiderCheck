@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "spell": {
+      "$ref": "detail.json"
+    },
+    "description": {
+      "type": "string"
+    },
+    "cast_time": {
+      "type": "string"
+    },
+    "cooldown": {
+      "type": "string"
+    }
+  }
+}

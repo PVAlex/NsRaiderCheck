@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "primary": {
+      "type": "array",
+      "items": {
+        "$ref": "profession.json"
+      }
+    },
+    "secondary": {
+      "type": "array",
+      "items": {
+        "$ref": "profession.json"
+      }
+    }
+  }
+}

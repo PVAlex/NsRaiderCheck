@@ -1,0 +1,41 @@
+HELP.md
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+### VS Code ###
+.vscode/
+
+### NPM ###
+/src/main/resources/static/node/**/*
+/src/main/resources/static/node_modules/**/*
+/src/main/resources/static/generated/**/*
+/src/main/resources/static/npm-debug.log
+/src/main/resources/static/package-lock.json
+
+### Properties ###
+/src/main/resources/*.properties
+!/src/main/resources/application.properties
+!/src/main/resources/default.properties

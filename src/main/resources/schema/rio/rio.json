@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "profile_url": {
+      "type": "string"
+    },
+    "mythic_plus_recent_runs": {
+      "type": "array",
+      "items": {
+        "$ref": "mythic.json"
+      }
+    },
+    "mythic_plus_weekly_highest_level_runs": {
+      "type": "array",
+      "items": {
+        "$ref": "mythic.json"
+      }
+    },
+    "last_week_run": {
+      "$ref": "mythic.json"
+    }
+  }
+}

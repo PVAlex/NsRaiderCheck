@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "character": {
+      "$ref": "character.json"
+    },
+    "equipped_items": {
+      "type": "array",
+      "items": {
+        "$ref": "equipped_item.json"
+      }
+    }
+  }
+}

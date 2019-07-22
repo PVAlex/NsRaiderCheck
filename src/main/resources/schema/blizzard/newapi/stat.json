@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "$ref": "type.json"
+    },
+    "value": {
+      "type": "string"
+    },
+    "display_string": {
+      "type": "string"
+    },
+    "is_negated": {
+      "type": "boolean"
+    }
+  }
+}

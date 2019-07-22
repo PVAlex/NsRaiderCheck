@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "properties": {
+    "lastModified": {
+      "type": "integer",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "realm": {
+      "type": "string"
+    },
+    "battlegroup": {
+      "type": "string"
+    },
+    "level": {
+      "type": "integer"
+    },
+    "side": {
+      "type": "integer"
+    },
+    "achievementPoints": {
+      "type": "integer"
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "existingJavaType": "ru.nsguild.raidercheck.entity.Member"
+      }
+    },
+    "emblem": {
+      "$ref": "emblem.json"
+    }
+  }
+}

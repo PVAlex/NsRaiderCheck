@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "key": {
+      "$ref": "key.json"
+    },
+    "name": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    }
+  }
+}

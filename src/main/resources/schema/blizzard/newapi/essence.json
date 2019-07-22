@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "slot": {
+      "type": "integer"
+    },
+    "rank": {
+      "type": "integer"
+    },
+    "main_spell_tooltip": {
+      "$ref": "spell.json"
+    },
+    "passive_spell_tooltip": {
+      "$ref": "spell.json"
+    },
+    "essence": {
+      "$ref": "detail.json"
+    },
+    "media": {
+      "$ref": "detail.json"
+    }
+  }
+}

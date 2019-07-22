@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "key": {
+      "$ref": "key.json"
+    },
+    "name": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "realm": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "$ref": "key.json"
+        },
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "slug": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

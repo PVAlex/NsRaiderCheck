@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "properties": {
+    "averageItemLevel": {
+      "type": "integer"
+    },
+    "averageItemLevelEquipped": {
+      "type": "integer"
+    },
+    "head": {
+      "$ref": "item.json"
+    },
+    "neck": {
+      "$ref": "item.json"
+    },
+    "shoulder": {
+      "$ref": "item.json"
+    },
+    "back": {
+      "$ref": "item.json"
+    },
+    "chest": {
+      "$ref": "item.json"
+    },
+    "shirt": {
+      "$ref": "item.json"
+    },
+    "tabard": {
+      "$ref": "item.json"
+    },
+    "wrist": {
+      "$ref": "item.json"
+    },
+    "hands": {
+      "$ref": "item.json"
+    },
+    "waist": {
+      "$ref": "item.json"
+    },
+    "legs": {
+      "$ref": "item.json"
+    },
+    "feet": {
+      "$ref": "item.json"
+    },
+    "finger1": {
+      "$ref": "item.json"
+    },
+    "finger2": {
+      "$ref": "item.json"
+    },
+    "trinket1": {
+      "$ref": "item.json"
+    },
+    "trinket2": {
+      "$ref": "item.json"
+    },
+    "mainHand": {
+      "$ref": "item.json"
+    },
+    "offHand": {
+      "$ref": "item.json"
+    }
+  }
+}

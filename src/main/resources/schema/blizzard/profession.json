@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "rank": {
+      "type": "integer"
+    },
+    "max": {
+      "type": "integer"
+    },
+    "recipes": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    }
+  }
+}

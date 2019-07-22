@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "icon": {
+      "type": "integer"
+    },
+    "iconColor": {
+      "type": "string"
+    },
+    "iconColorId": {
+      "type": "integer"
+    },
+    "border": {
+      "type": "integer"
+    },
+    "borderColor": {
+      "type": "string"
+    },
+    "borderColorId": {
+      "type": "integer"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "backgroundColorId": {
+      "type": "integer"
+    }
+  }
+}
