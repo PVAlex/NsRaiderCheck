@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -36,13 +37,15 @@ public class SpringConfig {
         final PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
         final List<Properties> locations = new ArrayList<>();
         try {
-            locations.add(PropertiesLoaderUtils.loadProperties(new ClassPathResource("default.properties")));
+            locations.add(PropertiesLoaderUtils.loadProperties(
+                    new EncodedResource(new ClassPathResource("default.properties"), "UTF-8")));
         } catch (Exception e) {
             logger.error("default.properties not found: " + e.getMessage());
         }
         try {
             final String propsName = getAddress().getHostName() + ".properties";
-            locations.add(PropertiesLoaderUtils.loadProperties(new ClassPathResource(propsName)));
+            locations.add(PropertiesLoaderUtils.loadProperties(
+                    new EncodedResource(new ClassPathResource(propsName), "UTF-8")));
             logger.info("Using " + propsName);
         } catch (Exception e) {
             logger.info("Using default.properties");
@@ -62,6 +65,4 @@ public class SpringConfig {
     public RestTemplate restTemplate(HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory) {
         return new RestTemplate(httpComponentsClientHttpRequestFactory);
     }
-
-
 }

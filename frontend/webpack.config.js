@@ -1,7 +1,5 @@
-let packageJSON = require('./package.json');
 let path = require('path');
 let webpack = require('webpack');
-
 
 let ExtractTextPlugin = require ('extract-text-webpack-plugin');
 
@@ -9,10 +7,10 @@ module.exports = {
     devtool: 'source-map',
     entry: [
         "babel-polyfill",
-        path.join(__dirname) + '/index.jsx'
+        path.join(__dirname) + '/src/index.jsx'
     ],
     output: {
-        path: path.join(__dirname, 'generated'),
+        path: path.resolve("../src/main/resources/static/generated"),
         filename: 'appBundle.js'
     },
     resolve: {

@@ -45,7 +45,7 @@ public class BlizzardApiService {
     private String realmSlug;
     @Value("${guild.name:}")
     private String guildName;
-    @Value("${locale:en_EU}")
+    @Value("${locale:}")
     private String locale;
 
     private Token token;
@@ -56,7 +56,7 @@ public class BlizzardApiService {
      * @return токен
      */
     private Token getToken() {
-        if (token == null || token.getExpiresIn().after(Date.from(Instant.now()))) {
+        if (token == null || token.getExpiresIn().before(Date.from(Instant.now()))) {
             try {
                 final HttpHeaders httpHeaders = new HttpHeaders();
                 httpHeaders.setBasicAuth(clientId, clientSecret);
@@ -92,7 +92,7 @@ public class BlizzardApiService {
     }
 
     /**
-     * Получение информации об экипировке, талантах и проблемах персонажей.
+     * Получение информации об экипировке, талантах, репутации, профессиях и проблемах персонажей.
      *
      * @param names список имён персонажей.
      * @return список персонажей.
@@ -102,14 +102,15 @@ public class BlizzardApiService {
     }
 
     /**
-     * Получение информации об экипировке, талантах и проблемах персонажа.
+     * Получение информации об экипировке, талантах, репутации, профессиях и проблемах персонажей.
      *
      * @param name имя персонажа.
      * @return персонаж.
      */
     public Character getGear(String name) {
         final String url = "https://eu.api.blizzard.com/wow/character/" + realm + "/" + name
-                + "?fields=items,audit,talents,reputation,professions&locale=" + locale + "&access_token=" + getToken().getAccessToken();
+                + "?fields=items,audit,talents,reputation,professions&locale=" + locale
+                + "&access_token=" + getToken().getAccessToken();
         try {
             return restTemplate.getForObject(url, Character.class);
         } catch (Exception e) {

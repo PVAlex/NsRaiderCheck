@@ -70,6 +70,7 @@
     </dependencies>
 
     <build>
+        <finalName>${name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -81,6 +82,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -106,11 +108,12 @@
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.7.6</version>
                 <configuration>
-                    <workingDirectory>src/main/resources/static</workingDirectory>
+                    <workingDirectory>frontend</workingDirectory>
                 </configuration>
                 <executions>
                     <execution>
                         <id>install node and npm</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
@@ -121,6 +124,7 @@
                     </execution>
                     <execution>
                         <id>npm install</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -130,6 +134,7 @@
                     </execution>
                     <execution>
                         <id>npm run build</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -147,8 +152,14 @@
                         <fileset>
                             <directory>${basedir}/src/main/resources/static</directory>
                             <includes>
-                                <include>**/package-lock.json</include>
                                 <include>**/generated/</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>${basedir}/frontend</directory>
+                            <includes>
+                                <include>**/package-lock.json</include>
                                 <include>**/node/</include>
                                 <include>**/node_modules/</include>
                             </includes>
@@ -157,15 +168,32 @@
                     </filesets>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/resources</outputDirectory>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <excludes>
+                                        <exclude>logback-test.xml</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>static/node_modules/**/*</exclude>
-                    <exclude>logback-test.xml</exclude>
-                </excludes>
-            </resource>
-        </resources>
     </build>
 </project>
