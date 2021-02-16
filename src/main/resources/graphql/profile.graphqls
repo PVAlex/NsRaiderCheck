@@ -1,0 +1,189 @@
+
+schema {
+    query: Query
+}
+
+type Query {
+    all: [Profile]
+    byName(name: String!): Profile
+}
+
+type Profile {
+    id: Int
+    name: String
+    level: Int
+    rank: Int
+    race: Int
+    characterClass: Int
+    equippedItems: [EquippedItem]
+    specialization: Specialization
+    reputations(ids: [Int]): [Reputation]
+    primaryProfessions: [Profession]
+    secondaryProfessions: [Profession]
+    mythicWeeklyHighest: [Mythic]
+    mythicLastWeek: [Mythic]
+    mythicMax: [Mythic]
+    mythicScore: Float
+    chosenCovenant: Detail
+    soulbinds: [Soulbind]
+    renownLevel: Int
+}
+
+type EquippedItem {
+    item: Detail
+    enchantments: [Enchantment]
+    sockets: [Socket]
+    slot: Type
+    quantity: Int
+    context: Int
+    bonusList: [Int]
+    quality: Type
+    name: String
+    modifiedAppearanceId: Int
+    nameDescription: String
+    media: Detail
+    itemClass: Detail
+    itemSubclass: Detail
+    inventoryType: Type
+    binding: Type
+    armor: String
+    stats: [Stat]
+    spells: [Spell]
+    requirements: String
+    level: Stat
+    transmog: Transmog
+    durability: Stat
+    uniqueEquipped: String
+}
+
+type Enchantment {
+    displayString: String
+    sourceItem: Detail
+    enchantmentId: Int
+    enchantmentSlot: Type
+}
+
+type Socket {
+    socketType: Type
+    item: Detail
+    displayString: String
+    media: Detail
+}
+
+type Specialization {
+    specialization: Detail
+    talents: [Talent]
+    glyphs: [Detail]
+    pvpTalentSlots: [PvpTalent]
+}
+
+type Reputation {
+    faction: Detail
+    standing: Standing
+}
+
+type Profession {
+    profession: Detail
+    tiers: [Tier]
+    skillPoints: Int
+    maxSkillPoints: Int
+}
+
+type Mythic {
+    dungeon: String
+    shortName: String
+    mythicLevel: Int
+    completedAt:String
+    clearTimeMs: Int
+    numKeystoneUpgrades: Int
+    mapChallengeModeId: Int
+    score: Int
+    affixes: [Affix]
+    url: String
+}
+
+type Soulbind {
+    soulbind: Detail
+    traits: [Trait]
+    isActive: Boolean
+}
+
+type Trait {
+    trait: Type
+    conduitSocket: ConduitSocket
+    tier: Int
+    displayOrder: Int
+}
+
+type ConduitSocket {
+    type: Type
+    socket: ConduitSocketDetail
+}
+
+type ConduitSocketDetail {
+    conduit: Detail
+    rank: Int
+}
+
+type Affix {
+    id: Int
+    name: String
+    description: String
+    wowheadUrl: String
+}
+
+type Tier {
+    skillPoints: Int
+    maxSkillPoints: Int
+    tier: Detail
+}
+
+type Standing {
+    raw: Int
+    value: Int
+    max: Int
+    tier: Int
+    name: String
+}
+
+type Talent {
+    talent: Detail
+    spellTooltip: Spell
+    tierIndex: Int
+    columnIndex: Int
+}
+
+type PvpTalent {
+    selected: Talent
+    slotNumber: Int
+}
+
+type Spell {
+    spell: Detail
+    description: String
+    castTime: String
+    cooldown: String
+}
+
+type Transmog {
+    item: Detail
+    displayString: String
+    itemModifiedAppearanceId: Int
+}
+
+type Stat {
+    type: Type
+    value: String
+    displayString: String
+    isNegated: Boolean
+}
+
+type Detail {
+    id: Int
+    name: String
+}
+
+type Type {
+    type: String
+    name: String
+}

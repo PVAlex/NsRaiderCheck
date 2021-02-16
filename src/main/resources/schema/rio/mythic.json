@@ -14,7 +14,7 @@
       "type": "string",
       "format": "date-time"
     },
-    "cleat_time_ms": {
+    "clear_time_ms": {
       "type": "integer"
     },
     "num_keystone_upgrades": {

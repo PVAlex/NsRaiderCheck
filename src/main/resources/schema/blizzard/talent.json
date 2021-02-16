@@ -1,17 +1,17 @@
 {
   "type": "object",
   "properties": {
-    "tier": {
-      "type": "integer"
+    "talent": {
+      "$ref": "detail.json"
     },
-    "column": {
-      "type": "integer"
-    },
-    "spell": {
+    "spell_tooltip": {
       "$ref": "spell.json"
     },
-    "spec": {
-      "$ref": "spec.json"
+    "tier_index": {
+      "type": "integer"
+    },
+    "column_index": {
+      "type": "integer"
     }
   }
 }

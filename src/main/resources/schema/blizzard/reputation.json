@@ -1,20 +1,28 @@
 {
   "type": "object",
   "properties": {
-    "id": {
-      "type": "integer"
-    },
-    "name": {
-      "type": "string"
+    "faction": {
+      "$ref": "detail.json"
     },
     "standing": {
-      "type": "string"
-    },
-    "value": {
-      "type": "integer"
-    },
-    "max": {
-      "type": "integer"
+      "type": "object",
+      "properties": {
+        "raw": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "integer"
+        },
+        "max": {
+          "type": "integer"
+        },
+        "tier": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
     }
   }
 }

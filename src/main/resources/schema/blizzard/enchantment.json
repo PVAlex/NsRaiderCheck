@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "display_string": {
+      "type": "string"
+    },
+    "source_item": {
+      "$ref": "detail.json"
+    },
+    "enchantment_id": {
+      "type": "integer"
+    },
+    "enchantment_slot": {
+      "$ref": "type.json"
+    }
+  }
+}

@@ -1,26 +1,31 @@
 {
   "type": "object",
   "properties": {
-    "id": {
-      "type": "integer"
+    "profession": {
+      "$ref": "detail.json"
     },
-    "name": {
-      "type": "string"
-    },
-    "icon": {
-      "type": "string"
-    },
-    "rank": {
-      "type": "integer"
-    },
-    "max": {
-      "type": "integer"
-    },
-    "recipes": {
+    "tiers": {
       "type": "array",
       "items": {
-        "type": "integer"
+        "type": "object",
+        "properties": {
+          "skill_points": {
+            "type": "integer"
+          },
+          "max_skill_points": {
+            "type": "integer"
+          },
+          "tier": {
+            "$ref": "detail.json"
+          }
+        }
       }
+    },
+    "skill_points": {
+      "type": "integer"
+    },
+    "max_skill_points": {
+      "type": "integer"
     }
   }
 }

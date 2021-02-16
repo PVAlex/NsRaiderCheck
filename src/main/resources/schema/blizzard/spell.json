@@ -1,19 +1,16 @@
 {
   "type": "object",
   "properties": {
-    "id": {
-      "type": "integer"
-    },
-    "name": {
-      "type": "string"
-    },
-    "icon": {
-      "type": "string"
+    "spell": {
+      "$ref": "detail.json"
     },
     "description": {
       "type": "string"
     },
-    "castTime": {
+    "cast_time": {
+      "type": "string"
+    },
+    "cooldown": {
       "type": "string"
     }
   }

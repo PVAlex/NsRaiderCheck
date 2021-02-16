@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "selected": {
+      "$ref": "talent.json"
+    },
+    "slot_number": {
+      "type": "integer"
+    }
+  }
+}

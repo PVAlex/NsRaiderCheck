@@ -31,7 +31,12 @@ HELP.md
 ### NPM ###
 /frontend/node/**/*
 /frontend/node_modules/**/*
-/src/main/resources/static/generated/**/*
+/src/main/resources/static/js/**/*
+/src/main/resources/static/css/**/*
+/src/main/resources/static/fonts/**/*
+/src/main/resources/static/files/**/*
+/src/main/resources/static/favicon.ico
+/src/main/resources/templates/*.html
 /frontend/npm-debug.log
 /frontend/package-lock.json
 
@@ -39,3 +44,8 @@ HELP.md
 /src/main/resources/*.properties
 !/src/main/resources/application.properties
 !/src/main/resources/default.properties
+/.mvn/settings.xml
+
+###
+/src/test/resources/*.xls
+/src/test/resources/*.xlsx

@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "soulbind": {
+      "$ref": "detail.json"
+    },
+    "traits": {
+      "type": "array",
+      "items": {
+        "$ref": "trait.json"
+      }
+    },
+    "is_active": {
+      "type": "boolean"
+    }
+  }
+}

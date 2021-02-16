@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "r": {
+      "type": "integer"
+    },
+    "g": {
+      "type": "integer"
+    },
+    "b": {
+      "type": "integer"
+    },
+    "a": {
+      "type": "integer"
+    }
+  }
+}

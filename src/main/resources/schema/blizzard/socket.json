@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "socket_type": {
+      "$ref": "type.json"
+    },
+    "item": {
+      "$ref": "detail.json"
+    },
+    "display_string": {
+      "type": "string"
+    },
+    "media": {
+      "$ref": "detail.json"
+    }
+  }
+}

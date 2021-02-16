@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "conduit": {
+      "$ref": "detail.json"
+    },
+    "rank": {
+      "type": "integer"
+    }
+  }
+}

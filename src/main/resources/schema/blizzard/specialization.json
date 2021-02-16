@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "specialization": {
+      "$ref": "detail.json"
+    },
+    "talents": {
+      "type": "array",
+      "items": {
+        "$ref": "talent.json"
+      }
+    },
+    "glyphs": {
+      "type": "array",
+      "items": {
+        "$ref": "detail.json"
+      }
+    },
+    "pvp_talent_slots": {
+      "type": "array",
+      "items": {
+        "$ref": "pvp_talent.json"
+      }
+    }
+  }
+}

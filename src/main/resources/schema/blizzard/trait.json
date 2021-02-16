@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "trait": {
+      "$ref": "type.json"
+    },
+    "conduit_socket": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "type.json"
+        },
+        "socket": {
+          "$ref": "conduit_socket_detail.json"
+        }
+      }
+    },
+    "tier": {
+      "type": "integer"
+    },
+    "display_order": {
+      "type": "integer"
+    }
+  }
+}

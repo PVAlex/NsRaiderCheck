@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "display_string": {
+      "type": "string"
+    },
+    "color": {
+      "$ref": "color.json"
+    }
+  }
+}

@@ -1,0 +1,231 @@
+query GetProfiles {
+    all {
+        id
+        name
+        characterClass
+        race
+        rank
+        equippedItems {
+            inventoryType {
+                type
+            }
+            level {
+                value
+            }
+        }
+        soulbinds {
+            isActive
+            soulbind {
+                name
+            }
+        }
+        specialization {
+            specialization {
+                id
+                name
+            }
+        }
+        chosenCovenant {
+            name
+        }
+    }
+}
+
+query GetEquippedItems {
+    all {
+        id
+        name
+        rank
+        characterClass
+        specialization {
+            specialization {
+                id
+            }
+        }
+        equippedItems {
+            item {
+                id
+            }
+            level {
+                value
+            }
+            name
+            slot {
+                name
+                type
+            }
+            inventoryType {
+                type
+            }
+            bonusList
+            sockets {
+                item {
+                    id
+                    name
+                }
+                socketType {
+                    type
+                }
+            }
+            enchantments {
+                enchantmentId
+            }
+        }
+    }
+}
+
+query GetSpecialization {
+    all {
+        name
+        rank
+        specialization {
+            specialization {
+                id
+                name
+            }
+            glyphs {
+                id
+                name
+            }
+            pvpTalentSlots {
+                selected {
+                    tierIndex
+                    columnIndex
+                    spellTooltip {
+                        spell {
+                            id
+                            name
+                        }
+                    }
+                }
+                slotNumber
+            }
+            talents {
+                tierIndex
+                columnIndex
+                spellTooltip {
+                    spell {
+                        id
+                        name
+                    }
+                }
+            }
+        }
+    }
+}
+
+query GetProfessions {
+    all {
+        name
+        rank
+        primaryProfessions {
+            profession {
+                id
+                name
+            }
+            tiers {
+                maxSkillPoints
+                skillPoints
+                tier {
+                    id
+                    name
+                }
+            }
+        }
+        secondaryProfessions {
+            profession {
+                id
+                name
+            }
+            tiers {
+                maxSkillPoints
+                skillPoints
+                tier {
+                    id
+                    name
+                }
+            }
+            skillPoints
+            maxSkillPoints
+        }
+    }
+}
+
+query GetReputations($ids: [Int]!) {
+    all {
+        name
+        rank
+        reputations(ids: $ids) {
+            faction {
+                id
+                name
+            }
+            standing {
+                name
+                max
+                raw
+                tier
+                value
+            }
+        }
+    }
+}
+
+query GetCovenant {
+    all {
+        name
+        rank
+        chosenCovenant {
+            id
+            name
+        }
+        soulbinds {
+            isActive
+            soulbind {
+                id
+                name
+            }
+            traits {
+                conduitSocket {
+                    socket {
+                        conduit {
+                            id
+                            name
+                        }
+                        rank
+                    }
+                    type {
+                        name
+                        type
+                    }
+                }
+                displayOrder
+                tier
+                trait {
+                    name
+                    type
+                }
+            }
+        }
+    }
+}
+
+query GetRio {
+    all {
+        name
+        rank
+        mythicLastWeek {
+            mythicLevel
+            dungeon
+        }
+        mythicMax {
+            mythicLevel
+            dungeon
+        }
+        mythicWeeklyHighest {
+            mythicLevel
+            dungeon
+        }
+        mythicScore
+    }
+}
