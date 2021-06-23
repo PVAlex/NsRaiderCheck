@@ -1,21 +1,24 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import { Grid, makeStyles } from '@material-ui/core';
+import React from 'react';
 import { useProfessionsQuery } from '@ns/apollo';
 import _ from 'lodash';
 import { rankConverter } from '@ns/support';
+import Filter from '../Filter/Filter';
 import ProgressCell from './ProgressCell';
 import Table from './Table';
+import { PROFESSIONS_TABLE } from './tableName';
+
+const useStyles = makeStyles({
+  container: {
+    height: 'inherit',
+  },
+});
 
 const columns = [
   {
     key: 'name',
     name: 'Имя',
     frozen: true,
-    sortable: true,
-    width: 150,
-  },
-  {
-    key: 'rank',
-    name: 'Ранг',
     sortable: true,
     width: 150,
   },
@@ -64,7 +67,7 @@ const shadowlandsProfessions = {
   2762: 'Снятие шкур',
 };
 
-const createRows = (profiles) => profiles.reduce((prev, value) => {
+const createRows = (value) => {
   const row = {};
   (value.primaryProfessions || []).forEach((v, i) => {
     const tier = _.find(v.tiers, (t) => (
@@ -115,8 +118,8 @@ const createRows = (profiles) => profiles.reduce((prev, value) => {
   row.name = value.name;
   row.rank = rankConverter(value.rank);
   row.rankSort = value.rank;
-  return [...prev, row];
-}, []);
+  return row;
+};
 
 const sortRows = (sortColumn, sortDirection, rows) => {
   if (sortDirection === 'NONE') return rows;
@@ -124,9 +127,6 @@ const sortRows = (sortColumn, sortDirection, rows) => {
   switch (sortColumn) {
     case 'name':
       sortedRows = _.orderBy(sortedRows, [sortColumn]);
-      break;
-    case 'rank':
-      sortedRows = _.orderBy(sortedRows, ['rankSort']);
       break;
     case 'primary1':
       sortedRows = _.orderBy(sortedRows,
@@ -164,26 +164,30 @@ const sortRows = (sortColumn, sortDirection, rows) => {
   return sortDirection === 'DESC' ? sortedRows.reverse() : sortedRows;
 };
 
+const filterRows = (filter, rows) => {
+  const { name, rankSort } = filter;
+  return rows
+    .filter((row) => !name || name.filter((n) => row.name.toLowerCase().startsWith(n)).length)
+    .filter((row) => rankSort && rankSort.includes(row.rankSort));
+};
+
 const ProfessionsTable = () => {
+  const classes = useStyles();
   const { profiles, loading } = useProfessionsQuery();
-  const [[sortColumn, sortDirection], setSort] = useState(['name', 'NONE']);
-  const rows = useMemo(() => createRows(profiles), [profiles]);
-  const sortedRows = useMemo(() => sortRows(sortColumn, sortDirection, rows),
-    [sortColumn, sortDirection, rows]);
-  const handleSort = useCallback((columnKey, direction) => {
-    setSort([columnKey, direction]);
-  }, []);
 
   return (
-    <Table
-      rows={sortedRows}
-      tableName="professionsTable"
-      columns={columns}
-      loading={loading}
-      sortColumn={sortColumn}
-      sortDirection={sortDirection}
-      onSort={handleSort}
-    />
+    <Grid className={classes.container} container wrap="nowrap" direction="column">
+      <Filter tableName={PROFESSIONS_TABLE} />
+      <Table
+        values={profiles}
+        columns={columns}
+        rowRenderer={createRows}
+        onFilter={filterRows}
+        onSort={sortRows}
+        tableName={PROFESSIONS_TABLE}
+        loading={loading}
+      />
+    </Grid>
   );
 };
 

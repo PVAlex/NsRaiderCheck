@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "tier": {
+      "type": "integer"
+    },
+    "spell_tooltip": {
+      "$ref": "spell.json"
+    }
+  }
+}

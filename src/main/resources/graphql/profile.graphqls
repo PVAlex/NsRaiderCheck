@@ -54,6 +54,7 @@ type EquippedItem {
     transmog: Transmog
     durability: Stat
     uniqueEquipped: String
+    icon: Media
 }
 
 type Enchantment {
@@ -110,6 +111,7 @@ type Soulbind {
 
 type Trait {
     trait: Type
+    spell: Spell
     conduitSocket: ConduitSocket
     tier: Int
     displayOrder: Int
@@ -163,6 +165,7 @@ type Spell {
     description: String
     castTime: String
     cooldown: String
+    icon: Media
 }
 
 type Transmog {
@@ -186,4 +189,10 @@ type Detail {
 type Type {
     type: String
     name: String
+}
+
+type Media {
+    key: String
+    value: String
+    fileDataId: Int
 }

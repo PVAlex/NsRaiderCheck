@@ -1,11 +1,9 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
+import {
+  ProfessionsTable, ProfileTable, ReputationsTable, RioTable, SpecializationTable,
+} from '@ns/components/Table';
 import GearTable from '../Table/GearTable';
-import ProfessionsTable from '../Table/ProfessionsTable';
-import ProfileTable from '../Table/ProfileTable';
-import ReputationsTable from '../Table/ReputationsTable';
-import RioTable from '../Table/RioTable';
-import SpecializationTable from '../Table/SpecializationTable';
 
 const ContentRouter = () => (
   <Switch>
@@ -15,7 +13,7 @@ const ContentRouter = () => (
     <Route path="/wow/gear">
       <GearTable />
     </Route>
-    <Route path="/wow/spec">
+    <Route path="/wow/spec-and-covenant">
       <SpecializationTable />
     </Route>
     <Route path="/wow/professions">

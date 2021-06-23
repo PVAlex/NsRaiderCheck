@@ -49,6 +49,9 @@ query GetEquippedItems {
             level {
                 value
             }
+            quality {
+                type
+            }
             name
             slot {
                 name
@@ -78,6 +81,7 @@ query GetSpecialization {
     all {
         name
         rank
+        characterClass
         specialization {
             specialization {
                 id
@@ -96,6 +100,11 @@ query GetSpecialization {
                             id
                             name
                         }
+                        icon {
+                            key
+                            value
+                            fileDataId
+                        }
                     }
                 }
                 slotNumber
@@ -104,6 +113,41 @@ query GetSpecialization {
                 tierIndex
                 columnIndex
                 spellTooltip {
+                    spell {
+                        id
+                        name
+                    }
+                    icon {
+                        key
+                        value
+                        fileDataId
+                    }
+                }
+            }
+        }
+        chosenCovenant {
+            id
+            name
+        }
+        soulbinds {
+            isActive
+            soulbind {
+                name
+            }
+            traits {
+                trait {
+                    name
+                }
+                conduitSocket {
+                    type {
+                        name
+                        type
+                    }
+                }
+                spell {
+                    icon {
+                        value
+                    }
                     spell {
                         id
                         name

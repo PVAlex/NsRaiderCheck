@@ -1,9 +1,17 @@
+import { Grid, makeStyles } from '@material-ui/core';
 import _ from 'lodash';
-import React, { useCallback, useMemo, useState } from 'react';
+import React from 'react';
 import { useReputationsQuery } from '../../apollo';
-import { rankConverter } from '../../support';
+import Filter from '../Filter/Filter';
 import ProgressCell from './ProgressCell';
 import Table from './Table';
+import { REPUTATIONS_TABLE } from './tableName';
+
+const useStyles = makeStyles({
+  container: {
+    height: 'inherit',
+  },
+});
 
 const tableWidth = 300;
 
@@ -12,12 +20,6 @@ const columns = [
     key: 'name',
     name: 'Имя',
     frozen: true,
-    sortable: true,
-    width: 150,
-  },
-  {
-    key: 'rank',
-    name: 'Ранг',
     sortable: true,
     width: 150,
   },
@@ -77,10 +79,9 @@ const columns = [
   },
 ];
 
-const createRows = (profiles) => profiles.reduce((prev, profile) => {
+const createRow = (profile) => {
   const row = {
     name: profile.name,
-    rank: rankConverter(profile.rank),
     rankSort: profile.rank,
   };
   (profile.reputations || []).forEach((reputation) => {
@@ -93,8 +94,8 @@ const createRows = (profiles) => profiles.reduce((prev, profile) => {
     );
     row[`${reputation.faction.id}Sort`] = reputation.standing.raw;
   });
-  return [...prev, row];
-}, []);
+  return row;
+};
 
 const sortRows = (sortColumn, sortDirection, rows) => {
   if (sortDirection === 'NONE') return rows;
@@ -102,9 +103,6 @@ const sortRows = (sortColumn, sortDirection, rows) => {
   switch (sortColumn) {
     case 'name':
       sortedRows = _.orderBy(sortedRows, [sortColumn]);
-      break;
-    case 'rank':
-      sortedRows = _.orderBy(sortedRows, ['rankSort']);
       break;
     case '2439':
     case '2464':
@@ -122,26 +120,30 @@ const sortRows = (sortColumn, sortDirection, rows) => {
   return sortDirection === 'DESC' ? sortedRows.reverse() : sortedRows;
 };
 
+const filterRows = (filter, rows) => {
+  const { name, rankSort } = filter;
+  return rows
+    .filter((row) => !name || name.filter((n) => row.name.toLowerCase().startsWith(n)).length)
+    .filter((row) => rankSort && rankSort.includes(row.rankSort));
+};
+
 const ReputationsTable = () => {
+  const classes = useStyles();
   const { profiles, loading } = useReputationsQuery();
-  const [[sortColumn, sortDirection], setSort] = useState(['name', 'NONE']);
-  const rows = useMemo(() => createRows(profiles), [profiles]);
-  const sortedRows = useMemo(() => sortRows(sortColumn, sortDirection, rows),
-    [sortColumn, sortDirection, rows]);
-  const handleSort = useCallback((columnKey, direction) => {
-    setSort([columnKey, direction]);
-  }, []);
 
   return (
-    <Table
-      rows={sortedRows}
-      tableName="reputationsTable"
-      columns={columns}
-      loading={loading}
-      sortColumn={sortColumn}
-      sortDirection={sortDirection}
-      onSort={handleSort}
-    />
+    <Grid className={classes.container} container wrap="nowrap" direction="column">
+      <Filter tableName={REPUTATIONS_TABLE} />
+      <Table
+        values={profiles}
+        rowRenderer={createRow}
+        onFilter={filterRows}
+        onSort={sortRows}
+        tableName={REPUTATIONS_TABLE}
+        columns={columns}
+        loading={loading}
+      />
+    </Grid>
   );
 };
 

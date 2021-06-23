@@ -10,10 +10,13 @@ import {
 } from './graphqlRequests.graphql';
 
 export function useProfilesQuery() {
-  // const { loading, data: { all = [] } = {} } = useQuery(GetProfiles);
-  // return { loading, profiles: all };
-  return useQuery(GetProfiles);
+  const {
+    loading,
+    data: { all = [] } = {},
+  } = useQuery(GetProfiles);
+  return { loading, profiles: all };
 }
+
 export function useEquippedItemsQuery() {
   const {
     loading,

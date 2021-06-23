@@ -1,13 +1,20 @@
+import {
+  BIS_LIST_TABLE, COVENANT_TABLE, GEAR_TABLE, PROFESSIONS_TABLE,
+  REPUTATIONS_TABLE, RIO_TABLE, SPECIALIZATIONS_TABLE, PROFILE_TABLE,
+} from '@ns/components/Table/tableName';
 import { TOGGLE_ROW } from '../types';
 
 const tableInitialState = {
-  rioTable: {
+  [BIS_LIST_TABLE]: {},
+  [COVENANT_TABLE]: {},
+  [GEAR_TABLE]: {},
+  [REPUTATIONS_TABLE]: {},
+  [PROFESSIONS_TABLE]: {},
+  [PROFILE_TABLE]: {},
+  [RIO_TABLE]: {
     expand: {},
   },
-  gearTable: {},
-  specializationTable: {},
-  profileTable: {},
-  bisListTable: {},
+  [SPECIALIZATIONS_TABLE]: {},
 };
 
 function tableReducer(state = tableInitialState, action) {

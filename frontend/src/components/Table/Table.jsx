@@ -3,13 +3,25 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import React, { useLayoutEffect, useMemo } from 'react';
+import React, {
+  useCallback, useLayoutEffect, useMemo, useState,
+} from 'react';
 import DataGrid from 'react-data-grid';
-import './table.scss';
-import { useTable } from '@ns/redux';
+import { useFilter, useTable } from '@ns/redux';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
 
 const useStyles = makeStyles(() => ({
+  root: {
+    height: '100%',
+    '& .rdg-cell': {
+      padding: 0,
+    },
+  },
+  row: {
+  },
+  treeRow: {
+    backgroundColor: 'hsl(0deg 0% 96%)',
+  },
   wrapper: {
     padding: '0 8px',
     overflow: 'hidden',
@@ -51,10 +63,24 @@ CellValueWrapper.defaultProps = {
 };
 
 const Table = ({
-  columns, rows, tableName, treeView, loading, ...props
+  columns, tableName, treeView, loading, rowRenderer, onSort, onFilter, values,
 }) => {
   const { expand, toggleRow } = useTable(tableName);
+  const { filter } = useFilter(tableName);
   const classes = useStyles();
+
+  const [sortColumns, setSort] = useState([]);
+  const { columnKey: sortColumn, direction: sortDirection } = sortColumns[0] || { sortColumn: 'name', sortDirection: 'NONE' };
+  const rows = useMemo(() => (values || []).reduce((prev, value) => {
+    const row = rowRenderer(value);
+    return [...prev, row];
+  }, []), [values]);
+  const filteredRows = useMemo(() => onFilter(filter, rows), [filter, rows]);
+  const sortedRows = useMemo(() => onSort(sortColumn, sortDirection, filteredRows),
+    [sortColumn, sortDirection, filteredRows]);
+  const handleSort = useCallback((sort) => {
+    setSort(sort.slice(-1));
+  }, []);
 
   // Columns
   const getExpandFormatter = (column) => {
@@ -86,7 +112,7 @@ const Table = ({
   }, [expand, columns]);
 
   // Rows
-  const wrappedRows = useMemo(() => rows.map((row) => Object
+  const wrappedRows = useMemo(() => sortedRows.map((row) => Object
     .keys(row).reduce((previous, key) => {
       const v = row[key];
       const value = (v && v.value) || v;
@@ -107,10 +133,12 @@ const Table = ({
         }, []);
       }
       return result;
-    }, {})), [rows]);
+    }, {})), [sortedRows]);
   const treeRows = useMemo(() => treeView && wrappedRows.reduce((previous, row) => {
     if (row.children && expand[row.name.props.value]) {
-      const children = row.children.length > 1 ? _.slice(row.children, 1) : [];
+      const children = row.children.length > 1
+        ? _.slice(row.children, 1).reduce((prev, value) => [...prev, { ...value, tree: true }], [])
+        : [];
       return [...previous, row, ...children];
     }
     return [...previous, row];
@@ -130,34 +158,42 @@ const Table = ({
   useLayoutEffect(() => {
     refreshLinks();
   });
+  const rowStyle = (row) => (row.tree ? classes.treeRow : classes.row);
   return (
     <>
       { loading
         ? (<LoadingIndicator />)
         : (
           <DataGrid
+            className={classes.root}
+            rowClass={rowStyle}
             columns={wrappedColumns}
             rows={treeRows || wrappedRows}
             onScroll={refreshLinks}
-            {...props}
+            sortColumns={sortColumns}
+            onSortColumnsChange={handleSort}
           />
-        )
-      }
+        )}
     </>
   );
 };
 
 Table.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  rows: PropTypes.arrayOf(PropTypes.any).isRequired,
+  values: PropTypes.arrayOf(PropTypes.any).isRequired,
   tableName: PropTypes.string.isRequired,
   treeView: PropTypes.bool,
   loading: PropTypes.bool,
+  onFilter: PropTypes.func,
+  onSort: PropTypes.func,
+  rowRenderer: PropTypes.func.isRequired,
 };
 
 Table.defaultProps = {
   treeView: false,
   loading: false,
+  onFilter: (filter, rows) => rows,
+  onSort: (sortColumn, sortDirection, rows) => rows,
 };
 
 export default Table;

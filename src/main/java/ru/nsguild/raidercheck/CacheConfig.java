@@ -12,6 +12,8 @@ public class CacheConfig {
 
     public static final String BLIZZARD_AUTH = "blizzardAuth";
     public static final String PROFILES = "profiles";
+    public static final String CONDUIT = "conduit";
+    public static final String TECH_TALENT = "techTalent";
 
 //
 //    @Bean

@@ -3,9 +3,10 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = {
-  devtool: 'source-map',
+module.exports = (env, argv) => ({
+  devtool: argv.mode === 'development' ? 'source-map' : 'nosources-source-map',
   entry: {
     app: '/src/appEntry.jsx',
   },
@@ -16,11 +17,11 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      '@ns/apollo': path.resolve(__dirname, 'src/apollo/index.js'),
-      '@ns/components': path.resolve(__dirname, 'src/components/index.js'),
-      '@ns/containers': path.resolve(__dirname, 'src/containers/index.js'),
-      '@ns/redux': path.resolve(__dirname, 'src/redux/index.js'),
-      '@ns/support': path.resolve(__dirname, 'src/support/index.js'),
+      '@ns/apollo': path.resolve(__dirname, 'src/apollo'),
+      '@ns/components': path.resolve(__dirname, 'src/components'),
+      '@ns/containers': path.resolve(__dirname, 'src/containers'),
+      '@ns/redux': path.resolve(__dirname, 'src/redux'),
+      '@ns/support': path.resolve(__dirname, 'src/support'),
       'react/jsx-runtime': require.resolve('react/jsx-runtime'),
       redux: require.resolve('redux'),
     },
@@ -40,6 +41,14 @@ module.exports = {
       template: '/src/template/index.html',
       publicPath: '/',
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/icons/favicon.ico',
+          to: './',
+        },
+      ],
+    }),
   ],
   module: {
     rules: [
@@ -48,6 +57,10 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          options: {
+            plugins: ['lodash'],
+            presets: ['@babel/preset-env'],
+          },
         },
       },
       {
@@ -109,7 +122,7 @@ module.exports = {
     // splitChunks: {
     //     chunks: 'all',
     // },
-    minimize: true,
+    minimize: argv.mode === 'production',
     minimizer: [
       new TerserPlugin({
         parallel: true,
@@ -126,4 +139,4 @@ module.exports = {
       new CssMinimizerPlugin(),
     ],
   },
-};
+});

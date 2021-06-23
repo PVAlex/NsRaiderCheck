@@ -22,12 +22,22 @@
     "react"
   ],
   "rules": {
+    "radix": "off",
     "no-plusplus": "off",
     "react-hooks/exhaustive-deps": "off"
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "settings": {
     "import/resolver": {
+      "alias": {
+        "map": [
+          ["@ns/apollo", "./src/apollo"],
+          ["@ns/components", "./src/components"],
+          ["@ns/containers", "./src/containers"],
+          ["@ns/redux", "./src/redux"],
+          ["@ns/support", "./src/support"]
+        ]
+      },
       "node": {},
       "webpack": "./webpack.config.js"
     }

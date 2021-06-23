@@ -50,6 +50,7 @@ public class MPlusRequest extends RioApiRequest implements FieldRequest<Profile>
             }
         } catch (Exception e) {
             logger.error("MPlus not found for '{}' : {}", entity.getName(), e.getMessage());
+            logger.debug(e.getMessage(), e);
         }
     }
 }

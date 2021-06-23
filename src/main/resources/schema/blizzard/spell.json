@@ -12,6 +12,9 @@
     },
     "cooldown": {
       "type": "string"
+    },
+    "icon": {
+      "$ref": "asset.json"
     }
   }
 }

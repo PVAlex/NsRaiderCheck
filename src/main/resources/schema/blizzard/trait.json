@@ -4,6 +4,9 @@
     "trait": {
       "$ref": "type.json"
     },
+    "spell": {
+      "$ref": "spell.json"
+    },
     "conduit_socket": {
       "type": "object",
       "properties": {

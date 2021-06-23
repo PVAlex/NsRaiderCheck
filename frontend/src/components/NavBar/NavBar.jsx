@@ -45,11 +45,8 @@ const NavBar = () => {
           <ListItem button onClick={() => navigateTo('/wow/gear')} className={classes.nested}>
             <ListItemText primary="Снаряжение" />
           </ListItem>
-          <ListItem button onClick={() => navigateTo('/wow/spec')} className={classes.nested}>
-            <ListItemText primary="Специализация" />
-          </ListItem>
-          <ListItem button onClick={() => navigateTo('/wow/covenant')} className={classes.nested} disabled>
-            <ListItemText primary="Ковенант" />
+          <ListItem button onClick={() => navigateTo('/wow/spec-and-covenant')} className={classes.nested}>
+            <ListItemText primary="Специализация и ковенант" />
           </ListItem>
           <ListItem button onClick={() => navigateTo('/wow/reputations')} className={classes.nested}>
             <ListItemText primary="Репутация" />

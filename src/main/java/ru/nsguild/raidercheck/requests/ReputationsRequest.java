@@ -31,6 +31,7 @@ public class ReputationsRequest extends BlizzardApiRequest implements FieldReque
 
         } catch (Exception e) {
             logger.error("Reputations not found for '{}' : {}", entity.getName(), e.getMessage());
+            logger.debug(e.getMessage(), e);
         }
     }
 }

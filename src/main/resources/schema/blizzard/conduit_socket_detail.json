@@ -4,6 +4,9 @@
     "conduit": {
       "$ref": "detail.json"
     },
+    "spell": {
+      "$ref": "spell.json"
+    },
     "rank": {
       "type": "integer"
     }

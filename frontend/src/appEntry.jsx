@@ -22,16 +22,3 @@ ReactDom.render(
   </Router>,
   document.getElementById('root'),
 );
-
-// useEffect(() => {
-//     const script = document.createElement('script');
-
-//     script.src = 'http://wow.zamimg.com/widgets/power.js';
-//     script.async = true;
-//     script.body = 'var whTooltips = {colorLinks: true, iconizeLinks: true, renameLinks: true}';
-
-//     document.body.appendChild(script);
-//     return () => {
-//         document.body.removeChild(script);
-//     }
-// }, []);

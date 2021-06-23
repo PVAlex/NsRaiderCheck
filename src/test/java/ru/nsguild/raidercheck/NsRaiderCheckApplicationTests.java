@@ -39,7 +39,6 @@ public class NsRaiderCheckApplicationTests {
     @Value("#{${guild.ranks}}")
     private Map<Integer, String> ranks;
 
-
 //    @Ignore
     @Test
     public void contextLoads() {

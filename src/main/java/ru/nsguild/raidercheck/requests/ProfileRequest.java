@@ -11,6 +11,7 @@ import ru.nsguild.raidercheck.dao.Profile;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -26,7 +27,7 @@ public class ProfileRequest extends BlizzardApiRequest implements EntityRequest<
         + "?namespace=profile-eu&locale={locale}";
 
     @Override
-    public List<Profile> getEntity() {
+    public List<Profile> getEntity(Map<String, String> params) {
         try {
             final JsonNode apiResponse = getResponse(rosterApi, getParameters());
             if (apiResponse != null && apiResponse.has("members")) {
@@ -50,12 +51,12 @@ public class ProfileRequest extends BlizzardApiRequest implements EntityRequest<
                     && ((HttpClientErrorException)e).getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
                 logger.warn("Unauthorized. Token: {}", authenticationService.getToken());
                 authenticationService.clearAuthCache();
-                logger.warn("Token cache cleared.");
             } else if (e instanceof RestClientException) {
                 logger.warn("Profiles not found: {}", e.getMessage());
             } else {
                 logger.error(e.getMessage(), e);
             }
+            logger.debug(e.getMessage(), e);
         }
         return Collections.emptyList();
     }

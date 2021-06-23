@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "item": {
+      "$ref": "detail.json"
+    },
+    "socket_type": {
+      "$ref": "type.json"
+    },
+    "ranks": {
+      "type": "array",
+      "items": {
+        "$ref": "conduit_rank.json"
+      }
+    }
+  }
+}

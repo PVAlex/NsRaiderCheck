@@ -18,6 +18,7 @@ const useStyles = makeStyles({
 
 const App = () => {
   const classes = useStyles();
+  // document.cookie = 'SameSite=Lax';
   useWowhead();
   return (
     <Grid container wrap="nowrap" direction="row" className={classes.root}>

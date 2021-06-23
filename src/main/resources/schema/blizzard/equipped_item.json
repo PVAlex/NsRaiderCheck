@@ -110,6 +110,9 @@
     },
     "unique_equipped": {
       "type": "string"
+    },
+    "icon": {
+      "$ref": "asset.json"
     }
   }
 }

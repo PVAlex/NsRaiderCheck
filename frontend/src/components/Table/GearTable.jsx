@@ -1,18 +1,23 @@
-import { makeStyles } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
+import { rankConverter } from '@ns/support';
 import _ from 'lodash';
-import React, {
-  useCallback, useMemo, useState,
-} from 'react';
+
+import React from 'react';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { useEquippedItemsQuery } from '@ns/apollo';
-import { rankConverter } from '../../support';
+import GearFilter from '../Filter/GearFilter';
 import DiamondIcon from '../icons/DiamondIcon';
 import WandIcon from '../icons/WandIcon';
 import WhItemTooltip from '../Wowhead/WhItemTooltip';
 import Table from './Table';
+import { GEAR_TABLE } from './tableName';
 
 const itemColumnWidth = 200;
 
 const useStyles = makeStyles({
+  container: {
+    height: 'inherit',
+  },
   fail: {
     boxShadow: 'inset 0 0 0 2px red',
   },
@@ -39,12 +44,6 @@ const columns = [
     key: 'name',
     name: 'Имя',
     frozen: true,
-    sortable: true,
-    width: 150,
-  },
-  {
-    key: 'rank',
-    name: 'Ранг',
     sortable: true,
     width: 150,
   },
@@ -159,8 +158,10 @@ const GearTable = () => {
 
   const testItem = (item, profile) => {
     // [ench, gem]
-    const fail = [false, false];
+    const fail = [false, false, false];
     const { type } = item.inventoryType;
+    const { type: quality } = item.quality;
+    const { value: ilvl } = item.level;
     const cClass = profile.characterClass;
     const {
       specialization: { id: spec },
@@ -210,41 +211,48 @@ const GearTable = () => {
           : true);
       });
     }
+
+    // Legendary
+    if (quality === 'LEGENDARY' && ilvl < 235) fail[2] = true;
+
     return fail;
   };
 
-  const createRows = (profiles) => profiles.reduce((pProfiles, profile) => {
+  const createRow = (profile) => {
+    let hasFail = false;
     const items = profile.equippedItems.reduce((pItems, item) => {
       const fails = testItem(item, profile);
       const value = (
         <div className={classes.wrapper}>
           <WhItemTooltip item={item} className={classes.link} />
           {
-            (fails[0] || fails[1]) && (
+            (fails[0] || fails[1] || fails[2]) && (
               <div className={classes.icons}>
                 {fails[0] && <WandIcon className={classes.icon} />}
                 {fails[1] && <DiamondIcon className={classes.icon} />}
+                {fails[2] && <ArrowDownwardIcon className={classes.icon} />}
               </div>
             )
           }
         </div>
       );
+      hasFail = hasFail || fails[0] || fails[1] || fails[2];
       return {
         [item.slot.type.toLowerCase()]: {
           value,
-          style: (fails[0] || fails[1]) ? classes.fail : null,
+          style: (fails[0] || fails[1] || fails[2]) ? classes.fail : null,
         },
         ...pItems,
       };
     }, {});
-    pProfiles.push({
+    return {
       name: profile.name,
       rank: rankConverter(profile.rank),
       rankSort: profile.rank,
       ...items,
-    });
-    return pProfiles;
-  }, []);
+      hasFail,
+    };
+  };
 
   const sortRows = (sortColumn, sortDirection, rows) => {
     if (sortDirection === 'NONE') return rows;
@@ -253,33 +261,34 @@ const GearTable = () => {
       case 'name':
         sortedRows = _.orderBy(sortedRows, [sortColumn]);
         break;
-      case 'rank':
-        sortedRows = _.orderBy(sortedRows, ['rankSort']);
-        break;
       default:
     }
     return sortDirection === 'DESC' ? sortedRows.reverse() : sortedRows;
   };
 
+  const filterRows = (filter, rows) => {
+    const { hasFail, name, rankSort } = filter;
+    return rows
+      .filter((row) => !hasFail || row.hasFail)
+      .filter((row) => !name || name.filter((n) => row.name.toLowerCase().startsWith(n)).length)
+      .filter((row) => rankSort && rankSort.includes(row.rankSort));
+  };
+
   const { loading, profiles } = useEquippedItemsQuery();
-  const [[sortColumn, sortDirection], setSort] = useState(['name', 'NONE']);
-  const rows = useMemo(() => createRows(profiles), [profiles]);
-  const sortedRows = useMemo(() => sortRows(sortColumn, sortDirection, rows),
-    [sortDirection, sortColumn, rows]);
-  const handleSort = useCallback((columnKey, direction) => {
-    setSort([columnKey, direction]);
-  }, []);
 
   return (
-    <Table
-      rows={sortedRows}
-      columns={columns}
-      tableName="gearTable"
-      loading={loading}
-      sortColumn={sortColumn}
-      sortDirection={sortDirection}
-      onSort={handleSort}
-    />
+    <Grid className={classes.container} container wrap="nowrap" direction="column">
+      <GearFilter />
+      <Table
+        values={profiles}
+        columns={columns}
+        rowRenderer={createRow}
+        onFilter={filterRows}
+        onSort={sortRows}
+        tableName={GEAR_TABLE}
+        loading={loading}
+      />
+    </Grid>
   );
 };
 

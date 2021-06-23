@@ -1,5 +1,6 @@
 import React from 'react';
 import Table from './Table';
+import { BIS_LIST_TABLE } from './tableName';
 
 const columns = [
   {
@@ -102,7 +103,7 @@ const BisListTable = () => {
   return (
     <Table
       rows={}
-      tableName="bisListTable"
+      tableName={BIS_LIST_TABLE}
       columns={columns} />
   );
 };

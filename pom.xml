@@ -11,7 +11,7 @@
     <artifactId>ns-raider-check</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ns-raider-check</name>
-    <description>Project for Spring Boot</description>
+    <description>Guild member statistics collector</description>
 
     <properties>
         <maven.test.skip>true</maven.test.skip>
@@ -146,25 +146,25 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.10.3</version>
+                <version>1.11.3</version>
                 <configuration>
                     <workingDirectory>frontend</workingDirectory>
                 </configuration>
                 <executions>
                     <execution>
                         <id>install node and yarn</id>
-                        <phase>package</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>install-node-and-yarn</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v12.16.0</nodeVersion>
+                            <nodeVersion>v14.16.0</nodeVersion>
                             <yarnVersion>v1.22.4</yarnVersion>
                         </configuration>
                     </execution>
                     <execution>
                         <id>yarn install</id>
-                        <phase>package</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>yarn</goal>
                         </goals>
@@ -174,7 +174,7 @@
                     </execution>
                     <execution>
                         <id>yarn run build</id>
-                        <phase>package</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>yarn</goal>
                         </goals>
@@ -191,9 +191,10 @@
                     <filesets>
                         <fileset>
                             <directory>${basedir}/src/main/resources/static</directory>
-                            <includes>
-                                <include>**/generated/</include>
-                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>${basedir}/src/main/resources/templates</directory>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
                     </filesets>
@@ -211,6 +212,7 @@
                 <directory>src/main/resources</directory>
                 <excludes>
                     <exclude>logback-test.xml</exclude>
+                    <exclude>schema/**/*</exclude>
                 </excludes>
             </resource>
         </resources>

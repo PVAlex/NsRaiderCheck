@@ -1,9 +1,13 @@
 import { createMuiTheme } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const globalStyle = {
+  applyButton: {
+    backgroundColor: 'green',
+    color: 'white',
+  },
 };
 
 const NSThemeProvider = ({ children }) => {

@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "talent_tree": {
+      "$ref": "detail.json"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "spell_tooltip": {
+      "$ref": "spell.json"
+    },
+    "tier": {
+      "type": "integer"
+    },
+    "display_order": {
+      "type": "integer"
+    },
+    "media": {
+      "$ref": "detail.json"
+    }
+  }
+}

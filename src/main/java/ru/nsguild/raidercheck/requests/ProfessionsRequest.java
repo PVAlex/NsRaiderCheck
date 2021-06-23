@@ -34,6 +34,7 @@ public class ProfessionsRequest extends BlizzardApiRequest implements FieldReque
             }
         } catch (Exception e) {
             logger.error("Professions not found for '{}' : {}", entity.getName(), e.getMessage());
+            logger.debug(e.getMessage(), e);
         }
     }
 }
