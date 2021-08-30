@@ -15,7 +15,7 @@ public class MediaRequest extends BlizzardApiRequest implements EntityRequest<As
 
     private static final Logger logger = LoggerFactory.getLogger(MediaRequest.class);
 
-    private String mediaIpi = "https://us.api.blizzard.com/data/wow/media/{type}/{id}?namespace=static-us&locale={locale}";
+    private final String mediaApi = "https://us.api.blizzard.com/data/wow/media/{type}/{id}?namespace=static-us&locale={locale}";
 
     @Override
     public Asset getEntity(Map<String, String> params) {
@@ -23,7 +23,7 @@ public class MediaRequest extends BlizzardApiRequest implements EntityRequest<As
         parameters.put("locale", locale);
 
         try {
-            final JsonNode apiResponse = getResponse(mediaIpi, parameters);
+            final JsonNode apiResponse = getResponse(mediaApi, parameters);
             if (apiResponse != null && apiResponse.has("assets")) {
                 return StreamSupport.stream(apiResponse.get("assets").spliterator(), false)
                         .filter(node -> node.get("key").asText("").equals("icon"))
@@ -31,7 +31,7 @@ public class MediaRequest extends BlizzardApiRequest implements EntityRequest<As
                         .findFirst().orElse(null);
             }
         } catch (Exception e) {
-            logger.error("Media {} {} not found.", params.get("type"), params.get("id"));
+            logger.error("Media {} {} not found: {}", params.get("type"), params.get("id"), e.getMessage());
             logger.debug(e.getMessage(), e);
         }
         return null;

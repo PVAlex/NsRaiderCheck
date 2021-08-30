@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
-import ru.nsguild.raidercheck.service.ApiAuthenticationService;
+import ru.nsguild.raidercheck.service.api.ApiAuthenticationService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +37,17 @@ abstract class BlizzardApiRequest extends ApiRequest {
     protected Map<String, String> getParameters(String name) {
         final Map<String, String> parameters = getParameters();
         parameters.put("name", name.toLowerCase());
+        return parameters;
+    }
+    /**
+     * Получение параметров для запроса.
+     *
+     * @param name имя персонажа
+     * @return параметры
+     */
+    protected Map<String, String> getParameters(Map<String, String> params) {
+        final Map<String, String> parameters = getParameters();
+        parameters.putAll(params);
         return parameters;
     }
 

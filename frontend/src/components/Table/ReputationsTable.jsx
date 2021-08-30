@@ -3,7 +3,7 @@ import _ from 'lodash';
 import React from 'react';
 import { useReputationsQuery } from '../../apollo';
 import Filter from '../Filter/Filter';
-import ProgressCell from './ProgressCell';
+import ProgressCell from './cell/ProgressCell';
 import Table from './Table';
 import { REPUTATIONS_TABLE } from './tableName';
 
@@ -22,6 +22,18 @@ const columns = [
     frozen: true,
     sortable: true,
     width: 150,
+  },
+  {
+    key: '2472',
+    name: 'Кодекс архивариуса',
+    sortable: true,
+    width: tableWidth,
+  },
+  {
+    key: '2470',
+    name: 'Легион Смерти',
+    sortable: true,
+    width: tableWidth,
   },
   {
     key: '2410',
@@ -113,6 +125,8 @@ const sortRows = (sortColumn, sortDirection, rows) => {
     case '2432':
     case '2465':
     case '2462':
+    case '2472':
+    case '2470':
       sortedRows = _.orderBy(sortedRows, [(row) => row[`${sortColumn}Sort`] || ''], ['desc']);
       break;
     default:

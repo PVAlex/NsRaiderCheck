@@ -24,7 +24,7 @@ public class Profile {
     private Integer rank;
     private Integer race;
     private Integer characterClass;
-    private List<EquippedItem> equippedItems = new ArrayList<EquippedItem>();
+    private List<Item> equippedItems;
     private Specialization specialization;
     private List<Reputation> reputations;
     private List<Profession> primaryProfessions;
@@ -85,11 +85,14 @@ public class Profile {
         this.characterClass = characterClass;
     }
 
-    public List<EquippedItem> getEquippedItems() {
+    public List<Item> getEquippedItems() {
+        if (equippedItems == null) {
+            equippedItems = new ArrayList<>();
+        }
         return equippedItems;
     }
 
-    public void setEquippedItems(List<EquippedItem> equippedItems) {
+    public void setEquippedItems(List<Item> equippedItems) {
         this.equippedItems = equippedItems;
     }
 

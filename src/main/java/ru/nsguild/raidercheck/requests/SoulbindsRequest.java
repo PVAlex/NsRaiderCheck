@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.nsguild.raidercheck.dao.Profile;
 import ru.nsguild.raidercheck.dao.blizzard.*;
-import ru.nsguild.raidercheck.service.ConduitService;
-import ru.nsguild.raidercheck.service.IconService;
-import ru.nsguild.raidercheck.service.TechTalentService;
+import ru.nsguild.raidercheck.service.database.ConduitService;
+import ru.nsguild.raidercheck.service.database.IconService;
+import ru.nsguild.raidercheck.service.database.TechTalentService;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;

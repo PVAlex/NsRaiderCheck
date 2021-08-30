@@ -1,12 +1,12 @@
-const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+import path from 'path';
+import TerserPlugin from 'terser-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
-module.exports = (env, argv) => ({
-  devtool: argv.mode === 'development' ? 'source-map' : 'nosources-source-map',
+module.exports = {
+  devtool: process.env.NODE_ENV === 'development' ? 'source-map' : 'nosources-source-map',
   entry: {
     app: '/src/appEntry.jsx',
   },
@@ -122,7 +122,7 @@ module.exports = (env, argv) => ({
     // splitChunks: {
     //     chunks: 'all',
     // },
-    minimize: argv.mode === 'production',
+    minimize: process.env.NODE_ENV === 'production',
     minimizer: [
       new TerserPlugin({
         parallel: true,
@@ -139,4 +139,4 @@ module.exports = (env, argv) => ({
       new CssMinimizerPlugin(),
     ],
   },
-});
+};

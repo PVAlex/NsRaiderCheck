@@ -5,7 +5,7 @@
       "$ref": "type.json"
     },
     "value": {
-      "type": "string"
+      "type": "integer"
     },
     "display_string": {
       "type": "string"

@@ -5,7 +5,6 @@ export const useWowhead = (enable = true) => {
   useLayoutEffect(() => {
     if (enable) {
       window.whTooltips = {
-        colorlinks: true,
         iconizelinks: false,
         renamelinks: false,
         iconsize: 'large',

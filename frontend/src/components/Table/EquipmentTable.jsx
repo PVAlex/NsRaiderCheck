@@ -1,6 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Grid, makeStyles } from '@material-ui/core';
 import { rankConverter } from '@ns/support';
 import _ from 'lodash';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import React from 'react';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
@@ -25,12 +27,13 @@ const useStyles = makeStyles({
     display: 'flex',
   },
   icons: {
-    display: 'grid',
+    display: 'flex',
     paddingTop: '3px',
   },
   icon: {
     fontSize: 'inherit',
     color: 'red',
+    width: '1em !important',
   },
   link: {
     textOverflow: 'ellipsis',
@@ -69,7 +72,7 @@ const columns = [
   },
   {
     key: 'chest',
-    name: 'Сундук',
+    name: 'Нагрудник',
     width: itemColumnWidth,
   },
   {
@@ -151,15 +154,35 @@ const weaponEnch = [
 const gems = [
   173127, 173128, 173129, 173130, // shadowlands
   168636, 168637, 168638, // +7ms bfa
+  // Shards of domination
+  // Blood
+  187057, 187312, 187284, 187293, 187302, // Bek
+  187059, 187285, 187294, 187313, 187303, // Jas
+  187061, 187286, 187295, 187314, 187304, // Rev
+  // Frost
+  187063, 187315, 187287, 187296, 187305, // Cor
+  187071, 187289, 187298, 187317, 187307, // Tel
+  187065, 187288, 187297, 187316, 187306, // Kyr
+  // Unholy
+  187073, 187318, 187308, 187290, 187299, // Dyz
+  187079, 187292, 187301, 187310, 187320, // Zed
+  187076, 187291, 187300, 187309, 187319, // Oth
 ];
+// Bad legendary slot
+const allArmor = ['HEAD', 'SHOULDER', 'CHEST'];
+const cloth = ['WRIST', 'WAIST'];
+const leather = ['HAND', 'FEET'];
+const mail = ['WAIST', 'FEET'];
+const plate = ['WRIST', 'HAND'];
 
-const GearTable = () => {
+const EquipmentTable = () => {
   const classes = useStyles();
 
   const testItem = (item, profile) => {
-    // [ench, gem]
-    const fail = [false, false, false];
+    // [ench, gem, legIlvl, legSlot]
+    const fail = [false, false, false, false];
     const { type } = item.inventoryType;
+    const { id: itemSubclass } = item.itemSubclass;
     const { type: quality } = item.quality;
     const { value: ilvl } = item.level;
     const cClass = profile.characterClass;
@@ -213,7 +236,15 @@ const GearTable = () => {
     }
 
     // Legendary
-    if (quality === 'LEGENDARY' && ilvl < 235) fail[2] = true;
+    if (quality === 'LEGENDARY' && ilvl < 262) fail[2] = true;
+    // Wrong slot
+    if (quality === 'LEGENDARY'
+      && (allArmor.includes(type)
+        || (itemSubclass === 1 && cloth.includes(type))
+        || (itemSubclass === 2 && leather.includes(type))
+        || (itemSubclass === 3 && mail.includes(type))
+        || (itemSubclass === 4 && plate.includes(type))
+      )) fail[3] = true;
 
     return fail;
   };
@@ -231,6 +262,7 @@ const GearTable = () => {
                 {fails[0] && <WandIcon className={classes.icon} />}
                 {fails[1] && <DiamondIcon className={classes.icon} />}
                 {fails[2] && <ArrowDownwardIcon className={classes.icon} />}
+                {fails[3] && <FontAwesomeIcon icon={faTimes} className={classes.icon} />}
               </div>
             )
           }
@@ -293,4 +325,4 @@ const GearTable = () => {
 };
 
 export { columns };
-export default GearTable;
+export default EquipmentTable;

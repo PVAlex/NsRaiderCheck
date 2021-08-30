@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import ru.nsguild.raidercheck.dao.Profile;
 import ru.nsguild.raidercheck.dao.blizzard.Detail;
 import ru.nsguild.raidercheck.dao.blizzard.Specialization;
-import ru.nsguild.raidercheck.service.IconService;
+import ru.nsguild.raidercheck.service.database.IconService;
 
 import java.util.stream.StreamSupport;
 

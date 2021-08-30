@@ -1,14 +1,14 @@
 import { getFilter, saveFilter } from '@ns/support';
 import {
-  BIS_LIST_TABLE, COVENANT_TABLE, GEAR_TABLE, PROFESSIONS_TABLE,
+  BIS_EQUIPMENT_TABLE, COVENANT_TABLE, GEAR_TABLE, PROFESSIONS_TABLE,
   REPUTATIONS_TABLE, RIO_TABLE, SPECIALIZATIONS_TABLE, PROFILE_TABLE,
 } from '@ns/components/Table/tableName';
 import { SAVE_FILTER } from '../types';
 
-const rankSort = [0, 1, 2, 3, 4, 8];
+const rankSort = [0, 1, 2, 3, 4, 5];
 
 const filterInitialState = {
-  [BIS_LIST_TABLE]: { rankSort, ...getFilter(BIS_LIST_TABLE) },
+  [BIS_EQUIPMENT_TABLE]: { rankSort, ...getFilter(BIS_EQUIPMENT_TABLE) },
   [COVENANT_TABLE]: { rankSort, ...getFilter(COVENANT_TABLE) },
   [GEAR_TABLE]: { rankSort, hasFail: false, ...getFilter(GEAR_TABLE) },
   [PROFILE_TABLE]: { rankSort, ...getFilter(PROFILE_TABLE) },

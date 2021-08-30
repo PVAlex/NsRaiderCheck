@@ -60,6 +60,9 @@ query GetEquippedItems {
             inventoryType {
                 type
             }
+            itemSubclass {
+                id
+            }
             bonusList
             sockets {
                 item {
@@ -271,5 +274,68 @@ query GetRio {
             dungeon
         }
         mythicScore
+    }
+}
+
+query GetBisItems {
+    bisItems {
+        id
+        encounterId
+        instanceId
+        item {
+            name
+            item {
+                id
+            }
+            itemClass {
+                id
+                name
+            }
+            itemSubclass {
+                id
+                name
+            }
+            inventoryType {
+                type
+            }
+        }
+    }
+}
+
+query GetBisProfiles {
+    bisProfiles {
+        name
+        rank
+        items {
+            analog
+            ilvl
+            itemId
+            itemName
+            currentItemId
+            currentItemName
+            itemSlot
+            stat1Compare
+            stat1Type
+            stat2Compare
+            stat2Type
+        }
+    }
+}
+
+mutation SetBisItem($name: String!, $slot: String!, $itemId: Int) {
+    setBisItem(itemId: $itemId, slot: $slot, name: $name) {
+        items {
+            analog
+            ilvl
+            itemId
+            itemName
+            itemSlot
+            stat1Compare
+            stat1Type
+            stat2Compare
+            stat2Type
+        }
+        name
+        rank
     }
 }

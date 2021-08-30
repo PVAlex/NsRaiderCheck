@@ -1,4 +1,4 @@
-package ru.nsguild.raidercheck.service;
+package ru.nsguild.raidercheck.service.database;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,7 @@ public class IconService {
             params.put("type", mediaType);
             params.put("id", id.toString());
             final Asset entity = mediaRequest.getEntity(params);
-            return save(entity, id);
+            return entity == null ? new IconMedia() : save(entity, id);
         }).getMedia();
     }
 

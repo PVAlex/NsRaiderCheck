@@ -1,0 +1,16 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    all: [Profile]
+    byName(name: String!): Profile
+    bisItems: [BisItem]
+    bisProfiles: [BisProfile]
+}
+
+type Mutation {
+    refreshProfiles: Boolean
+    setBisItem(name: String, slot: String, itemId: Int): BisProfile
+}

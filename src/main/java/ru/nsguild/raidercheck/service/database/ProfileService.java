@@ -1,4 +1,4 @@
-package ru.nsguild.raidercheck.service;
+package ru.nsguild.raidercheck.service.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;

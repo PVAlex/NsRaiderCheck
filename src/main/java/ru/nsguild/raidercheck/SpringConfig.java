@@ -1,6 +1,7 @@
 package ru.nsguild.raidercheck;
 
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -57,8 +58,12 @@ public class SpringConfig {
 
     @Bean
     public HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory() {
+        PoolingHttpClientConnectionManager manager = new PoolingHttpClientConnectionManager();
+        manager.setMaxTotal(1);
+        manager.setDefaultMaxPerRoute(1);
         return new HttpComponentsClientHttpRequestFactory(HttpClientBuilder.create()
                 .disableAuthCaching()
+                .setConnectionManager(manager)
                 .disableCookieManagement()
                 .build());
     }

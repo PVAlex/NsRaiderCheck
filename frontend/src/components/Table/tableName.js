@@ -1,4 +1,5 @@
-export const BIS_LIST_TABLE = 'bisListTable';
+export const BIS_EQUIPMENT_TABLE = 'bisEquipmentTable';
+export const BIS_BOSSES_TABLE = 'bisBossesTable';
 export const COVENANT_TABLE = 'covenantTable';
 export const GEAR_TABLE = 'gearTable';
 export const PROFESSIONS_TABLE = 'professionsTable';

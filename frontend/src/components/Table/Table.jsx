@@ -4,7 +4,7 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, {
-  useCallback, useLayoutEffect, useMemo, useState,
+  useCallback, useMemo, useState,
 } from 'react';
 import DataGrid from 'react-data-grid';
 import { useFilter, useTable } from '@ns/redux';
@@ -115,7 +115,7 @@ const Table = ({
   const wrappedRows = useMemo(() => sortedRows.map((row) => Object
     .keys(row).reduce((previous, key) => {
       const v = row[key];
-      const value = (v && v.value) || v;
+      const value = (v?.value ?? v);
       const className = (v && v.style) || '';
       const { children } = v || {};
       const result = {
@@ -144,20 +144,20 @@ const Table = ({
     return [...previous, row];
   }, []), [expand, wrappedRows]);
 
-  const refreshLinks = () => {
-    const { $WowheadPower } = window;
-    if (typeof $WowheadPower !== 'undefined') {
-      try {
-        $WowheadPower.refreshLinks();
-      } catch (e) {
-        // DO NOTHING
-      }
-    }
-  };
-
-  useLayoutEffect(() => {
-    refreshLinks();
-  });
+  // const refreshLinks = () => {
+  //   const { $WowheadPower } = window;
+  //   if (typeof $WowheadPower !== 'undefined') {
+  //     try {
+  //       $WowheadPower.refreshLinks();
+  //     } catch (e) {
+  //       // DO NOTHING
+  //     }
+  //   }
+  // };
+  //
+  // useLayoutEffect(() => {
+  //   refreshLinks();
+  // });
   const rowStyle = (row) => (row.tree ? classes.treeRow : classes.row);
   return (
     <>
@@ -169,7 +169,7 @@ const Table = ({
             rowClass={rowStyle}
             columns={wrappedColumns}
             rows={treeRows || wrappedRows}
-            onScroll={refreshLinks}
+            // onScroll={refreshLinks}
             sortColumns={sortColumns}
             onSortColumnsChange={handleSort}
           />
@@ -186,7 +186,7 @@ Table.propTypes = {
   loading: PropTypes.bool,
   onFilter: PropTypes.func,
   onSort: PropTypes.func,
-  rowRenderer: PropTypes.func.isRequired,
+  rowRenderer: PropTypes.func,
 };
 
 Table.defaultProps = {
@@ -194,6 +194,7 @@ Table.defaultProps = {
   loading: false,
   onFilter: (filter, rows) => rows,
   onSort: (sortColumn, sortDirection, rows) => rows,
+  rowRenderer: (row) => row,
 };
 
 export default Table;

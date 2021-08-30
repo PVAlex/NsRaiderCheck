@@ -1,4 +1,4 @@
-package ru.nsguild.raidercheck.service;
+package ru.nsguild.raidercheck.service.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +42,7 @@ public class ApiAuthenticationService {
             httpHeaders.setContentType(MediaType.valueOf("application/x-www-form-urlencoded;charset=UTF-8"));
             final HttpEntity<String> entity = new HttpEntity<>("grant_type=client_credentials", httpHeaders);
             final ResponseEntity<Token> result =
-                restTemplate.exchange("https://eu.battle.net/oauth/token", HttpMethod.POST, entity, Token.class);
+                restTemplate.exchange("https://us.battle.net/oauth/token", HttpMethod.POST, entity, Token.class);
             if (result.hasBody()) {
                 final Token token = result.getBody();
                 logger.info("Authenticated. Token: " + token.getAccessToken());

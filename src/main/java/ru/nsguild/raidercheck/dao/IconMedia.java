@@ -1,5 +1,7 @@
 package ru.nsguild.raidercheck.dao;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ru.nsguild.raidercheck.dao.blizzard.Asset;
@@ -42,5 +44,29 @@ public class IconMedia {
     public IconMedia setMedia(Asset media) {
         this.media = media;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        IconMedia iconMedia = (IconMedia) o;
+
+        return new EqualsBuilder()
+                .append(id, iconMedia.id)
+                .append(sharedId, iconMedia.sharedId)
+                .append(media, iconMedia.media)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(sharedId)
+                .append(media)
+                .toHashCode();
     }
 }

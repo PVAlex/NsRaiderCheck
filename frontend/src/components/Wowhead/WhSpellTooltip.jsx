@@ -17,8 +17,8 @@ const WhSpellTooltip = ({
 );
 
 WhSpellTooltip.propTypes = {
-  spellId: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
+  spellId: PropTypes.number,
+  name: PropTypes.string,
   className: PropTypes.string,
   icon: PropTypes.string,
   iconOnly: PropTypes.bool,
@@ -26,6 +26,8 @@ WhSpellTooltip.propTypes = {
 };
 
 WhSpellTooltip.defaultProps = {
+  spellId: null,
+  name: null,
   className: null,
   icon: null,
   iconOnly: false,

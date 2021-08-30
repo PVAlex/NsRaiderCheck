@@ -11,6 +11,9 @@ HELP.md
 .springBeans
 .sts4-cache
 
+### Maven settings ###
+.mvn/
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -39,12 +42,12 @@ HELP.md
 /src/main/resources/templates/*.html
 /frontend/npm-debug.log
 /frontend/package-lock.json
+/frontend/yarn-error.log
 
 ### Properties ###
 /src/main/resources/*.properties
 !/src/main/resources/application.properties
 !/src/main/resources/default.properties
-/.mvn/settings.xml
 
 ###
 /src/test/resources/*.xls

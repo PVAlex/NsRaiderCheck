@@ -13,11 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import ru.nsguild.raidercheck.dao.BisItem;
 import ru.nsguild.raidercheck.dao.Profile;
 import ru.nsguild.raidercheck.dao.blizzard.Detail;
-import ru.nsguild.raidercheck.service.ProfileService;
-import ru.nsguild.raidercheck.service.RaiderCheckService;
+import ru.nsguild.raidercheck.service.database.BisService;
+import ru.nsguild.raidercheck.service.database.ProfileService;
+import ru.nsguild.raidercheck.service.support.TaskService;
 import ru.nsguild.raidercheck.support.ClassConverter;
+import ru.nsguild.raidercheck.dao.Instance;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,7 +38,9 @@ public class NsRaiderCheckApplicationTests {
     @Autowired
     private ProfileService profileService;
     @Autowired
-    private RaiderCheckService raiderCheckService;
+    private TaskService raiderCheckService;
+    @Autowired
+    private BisService bisService;
     @Value("#{${guild.ranks}}")
     private Map<Integer, String> ranks;
 
@@ -48,6 +53,9 @@ public class NsRaiderCheckApplicationTests {
     @Test
     public void checkProfiles() {
         final List<Profile> profiles = profileService.findAllProfiles();
+        profiles.forEach(profile -> bisService.checkItems(profile));
+
+        final List<BisItem> bisItems = bisService.getItemsByInstance(Instance.SANCTUM_OF_DOMINATION);
         Assert.assertNotEquals(profiles.isEmpty(), true);
     }
 
@@ -87,6 +95,13 @@ public class NsRaiderCheckApplicationTests {
     @Test
     public void clear() {
         raiderCheckService.clearNonGuildMembers();
+    }
+
+    @Test
+    public void refreshBisList() {
+        raiderCheckService.refreshBisItems();
+        final List<BisItem> bisItems = bisService.getItemsByInstance(Instance.SANCTUM_OF_DOMINATION);
+        Assert.assertFalse(bisItems.isEmpty());
     }
 
 }

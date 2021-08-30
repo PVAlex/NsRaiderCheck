@@ -71,7 +71,7 @@ const columns = [
   },
   {
     key: 'traits',
-    name: 'Трейты',
+    name: 'Способности',
   },
 ];
 

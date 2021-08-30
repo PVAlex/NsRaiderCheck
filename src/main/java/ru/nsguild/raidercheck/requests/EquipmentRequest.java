@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.nsguild.raidercheck.dao.Profile;
-import ru.nsguild.raidercheck.dao.blizzard.EquippedItem;
-import ru.nsguild.raidercheck.service.IconService;
+import ru.nsguild.raidercheck.dao.blizzard.Item;
+import ru.nsguild.raidercheck.service.database.IconService;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -31,7 +31,7 @@ public class EquipmentRequest extends BlizzardApiRequest implements FieldRequest
             final JsonNode apiResponse = getResponse(equipmentApi, getParameters(entity.getName()));
             if (apiResponse != null && apiResponse.has("equipped_items")) {
                 entity.setEquippedItems(StreamSupport.stream(apiResponse.get("equipped_items").spliterator(), true)
-                    .map(node -> mapper.convertValue(node, EquippedItem.class))
+                    .map(node -> mapper.convertValue(node, Item.class))
                     .peek(item -> item.setIcon(iconService.getItemIcon(item.getItem().getId())))
                     .collect(Collectors.toList()));
             }

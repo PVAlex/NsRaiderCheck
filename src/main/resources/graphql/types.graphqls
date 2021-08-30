@@ -1,11 +1,14 @@
-
-schema {
-    query: Query
+type BisProfile {
+    name: String
+    rank: Int
+    items: [BisItemData]
 }
 
-type Query {
-    all: [Profile]
-    byName(name: String!): Profile
+type BisItem {
+    id: Int
+    instanceId: Int
+    encounterId: Int
+    item: Item
 }
 
 type Profile {
@@ -15,7 +18,7 @@ type Profile {
     rank: Int
     race: Int
     characterClass: Int
-    equippedItems: [EquippedItem]
+    equippedItems: [Item]
     specialization: Specialization
     reputations(ids: [Int]): [Reputation]
     primaryProfessions: [Profession]
@@ -29,7 +32,21 @@ type Profile {
     renownLevel: Int
 }
 
-type EquippedItem {
+type BisItemData {
+    itemId: Int
+    itemName: String
+    currentItemId: Int
+    currentItemName: String
+    itemSlot: String
+    ilvl: Int
+    stat1Type: String
+    stat2Type: String
+    stat1Compare: Boolean
+    stat2Compare: Boolean
+    analog: Boolean
+}
+
+type Item {
     item: Detail
     enchantments: [Enchantment]
     sockets: [Socket]

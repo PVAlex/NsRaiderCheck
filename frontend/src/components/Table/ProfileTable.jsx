@@ -102,7 +102,7 @@ const sortRows = (sortColumn, sortDirection, rows) => {
       sortedRows = _.orderBy(sortedRows, [(row) => row[sortColumn] || null]);
       break;
     case 'ilvl':
-      sortedRows = _.orderBy(sortedRows, [sortColumn], ['desc']);
+      sortedRows = _.orderBy(sortedRows, [(row) => Number(row.ilvl)], ['desc']);
       break;
     default:
   }

@@ -4,7 +4,7 @@ import { useProfessionsQuery } from '@ns/apollo';
 import _ from 'lodash';
 import { rankConverter } from '@ns/support';
 import Filter from '../Filter/Filter';
-import ProgressCell from './ProgressCell';
+import ProgressCell from './cell/ProgressCell';
 import Table from './Table';
 import { PROFESSIONS_TABLE } from './tableName';
 

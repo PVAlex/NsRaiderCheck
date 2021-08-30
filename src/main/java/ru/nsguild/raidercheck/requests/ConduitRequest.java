@@ -18,11 +18,9 @@ public class ConduitRequest extends BlizzardApiRequest implements EntityRequest<
 
     @Override
     public Conduit getEntity(Map<String, String> params) {
-        final Map<String, String> parameters = new HashMap<String, String>(params) {
-            {
-                put("locale", locale);
-            }
-        };
+        final Map<String, String> parameters = new HashMap<>(params);
+        parameters.put("locale", locale);
+
         try {
             final JsonNode apiResponse = getResponse(conduitApi, parameters);
             if (apiResponse != null) {

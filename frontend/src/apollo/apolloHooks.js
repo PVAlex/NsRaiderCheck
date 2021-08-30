@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import {
   GetProfiles,
   GetEquippedItems,
@@ -7,6 +7,9 @@ import {
   GetCovenant,
   GetProfessions,
   GetRio,
+  GetBisItems,
+  GetBisProfiles,
+  SetBisItem,
 } from './graphqlRequests.graphql';
 
 export function useProfilesQuery() {
@@ -55,7 +58,7 @@ export function useReputationsQuery() {
     data: { all = [] } = {},
   } = useQuery(GetReputations, {
     variables: {
-      ids: [2439, 2464, 2413, 2407, 2410, 2445, 2432, 2465, 2462],
+      ids: [2439, 2464, 2413, 2407, 2410, 2445, 2432, 2465, 2462, 2472, 2470],
     },
   });
   return { loading, profiles: all };
@@ -67,4 +70,36 @@ export function useRioQuery() {
     data: { all = [] } = {},
   } = useQuery(GetRio);
   return { loading, profiles: all };
+}
+
+export function useBisItemsQuery() {
+  const {
+    loading,
+    data: { bisItems = [] } = {},
+  } = useQuery(GetBisItems);
+  return { loading, items: bisItems };
+}
+
+export function useBisProfilesQuery() {
+  const {
+    loading,
+    data: { bisProfiles = [] } = {},
+    refetch,
+  } = useQuery(GetBisProfiles);
+  return { loading, profiles: bisProfiles, refetch };
+}
+
+export function useSetBisItemMutation(onCompleted) {
+  const [saveFunc, mutationResult] = useMutation(SetBisItem, { onCompleted });
+  return {
+    save: ((name, slot, itemId) => saveFunc({
+      variables: {
+        name,
+        slot,
+        itemId,
+      },
+    })),
+    loading: mutationResult.loading,
+    profile: mutationResult.data,
+  };
 }
